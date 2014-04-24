@@ -1,0 +1,4 @@
+Croupier
+========
+
+    python -m croupier
