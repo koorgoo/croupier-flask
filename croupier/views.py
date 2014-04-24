@@ -9,7 +9,7 @@ def index():
     return 'It works!'
 
 
-@app.route('/cards')
-def cards():
-    cards = Card.query.all()
-    return render_template('cards.html', cards=cards)
+@app.route('/app/')
+@app.route('/app')
+def lets_rock():
+    return render_template('app.html')
