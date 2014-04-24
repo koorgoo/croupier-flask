@@ -1,2 +1,3 @@
 from .views import *
-from .server import app
+from .models import *
+from .server import app, db
