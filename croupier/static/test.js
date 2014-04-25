@@ -6,7 +6,6 @@ requirejs.config({
     qunit: {
       exports: 'QUnit',
       init: function() {
-        QUnit.config.autoload = false;
         QUnit.config.autostart = false;
       }
     }
@@ -16,9 +15,7 @@ requirejs.config({
 require([
   'qunit',
   'tests/foo'
-], function(QUnit, foo) {
-  foo.run();
-
+], function(QUnit) {
   QUnit.load();
   QUnit.start();
 });
