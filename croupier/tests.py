@@ -1,6 +1,7 @@
 import os
 os.environ['FLASK_ENV'] = 'test'
 
+import json
 import unittest
 
 from croupier.server import app, db
@@ -12,6 +13,7 @@ class TestCase(unittest.TestCase):
     db.create_all()
     db.session.add(Card('1 + 2 = ?', '3'))
     db.session.commit()
+    self.app = app.test_client()
 
   def tearDown(self):
     db.drop_all()
@@ -23,6 +25,18 @@ class FooTest(TestCase):
 
   def test_cards(self):
     assert Card.query.count() == 1
+
+
+def json_loads(b):
+    return json.loads(b.decode('utf8'))
+
+
+class CardApiTest(TestCase):
+    def test_retrieve_all(self):
+        resp = self.app.get('/api/cards')
+        data = json_loads(resp.data)
+        assert resp.status_code == 200
+        assert len(data) == 1
 
 
 if __name__ == '__main__':
