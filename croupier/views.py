@@ -17,7 +17,12 @@ def lets_rock():
 
 
 # API
-card_fields = { 'front': fields.String, 'back': fields.String }
+
+card_fields = {
+    'id':    fields.Integer,
+    'front': fields.String,
+    'back':  fields.String
+}
 
 class Cards(Resource):
     @marshal_with(card_fields)
