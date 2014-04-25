@@ -1,0 +1,19 @@
+@font-face {
+  font-family: Casper;
+  src: url('../fonts/Casper.ttf');
+}
+
+body { 
+  font-family: Casper, sans-serif; 
+}
+
+.text-center {
+  text-align: center;
+}
+
+
+/* Custom Pure */
+
+.pure-menu {
+  font-size: 1.2em;
+}
