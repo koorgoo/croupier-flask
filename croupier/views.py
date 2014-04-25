@@ -16,6 +16,12 @@ def lets_rock():
     return render_template('app.html')
 
 
+@app.route('/test/')
+@app.route('/test')
+def test_js():
+    return render_template('test.html')
+
+
 # API
 
 card_fields = {

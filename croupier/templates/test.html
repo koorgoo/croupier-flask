@@ -2,11 +2,13 @@
 
 
 {% block static %}
+  <link href="/static/css/qunit.css" rel="stylesheet" />
   <script data-main="/static/config" src="/static/require.js" type="text/javascript"></script>
-  <script src="/static/main.js" type="text/javascript"></script>
+  <script src="/static/test.js" type="text/javascript"></script>
 {% endblock %}
 
 
 {% block content %}
-  Loading...
+  <div id="qunit"></div>
+  <div id="qunit-fixture"></div>
 {% endblock %}
