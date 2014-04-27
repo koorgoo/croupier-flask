@@ -38,6 +38,14 @@ class CardApiTest(TestCase):
         assert resp.status_code == 200
         assert len(data) == 1
 
+    def test_create_card(self):
+        data = { 'front': '2 * 3 = ?', 'back': '6' }
+        resp = self.app.post('/api/cards', data=data)
+        data = json_loads(resp.data)
+        assert resp.status_code == 201
+        assert data['back'] == '6'
+        assert data['id'] is not None
+
 
 if __name__ == '__main__':
   unittest.main()
