@@ -24,11 +24,11 @@ requirejs.config({
       exports: '_'
     },
     backbone: {
-      deps: ['underscore', 'jquery'],
+      deps: ['underscore', 'jquery', 'deferred'],
       exports: 'Backbone'
     },
     marionette: {
-      deps: ['backbone', 'deferred'],
+      deps: ['backbone', 'jquery', 'deferred'],
       exports: 'Backbone.Marionette'
     }
   }

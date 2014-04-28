@@ -1,16 +1,20 @@
 define([
   'marionette',
   'layouts/application',
+  'collections/cards',
   'views/card'
-], function(Marionette, AppLayout, CardView) {
+], function(Marionette, AppLayout, CardSet, CardView) {
   var app = new Marionette.Application();
 
   app.addInitializer(function(options) {
     var layout = new AppLayout();
-    var card = new CardView();
+    var cards = new CardSet();
+    var view = new CardView({ collection: cards });
 
-    layout.render();
-    layout.content.show(card);
+    cards.fetch().done(function() {
+      layout.render();
+      layout.content.show(view);
+    });
   });
 
   return app;

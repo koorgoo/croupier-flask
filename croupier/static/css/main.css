@@ -11,9 +11,49 @@ body {
   text-align: center;
 }
 
+.hidden { 
+  display: none;
+}
+
+.card { 
+  text-align: center; 
+  margin: 1em;  
+}
+
+.card .side {
+  font-size: 2em; 
+  padding: 0.5em 1em;
+}
+
+.card .side.muted {
+  font-size: 1.5em;
+  color: black;
+}
+
+.card .toggle { 
+  padding: 1.05em;
+  font-size: 1em;
+  cursor: pointer;
+  color: #666; 
+}
+
 
 /* Custom Pure */
 
 .pure-menu {
   font-size: 1.2em;
 }
+
+.button-xsmall {
+  font-size: 70%;
+}
+.button-small {
+  font-size: 85%;
+}
+.button-large {
+  font-size: 110%;
+}
+.button-xlarge {
+  font-size: 125%;
+}
+
