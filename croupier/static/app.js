@@ -1,15 +1,16 @@
 define([
   'marionette',
-  'views/application',
-], function(Marionette, AppView) {
+  'layouts/application',
+  'views/card'
+], function(Marionette, AppLayout, CardView) {
   var app = new Marionette.Application();
 
-  app.addRegions({
-    bodyRegion: 'body'
-  });
-
   app.addInitializer(function(options) {
-    app.bodyRegion.show(new AppView());
+    var layout = new AppLayout();
+    var card = new CardView();
+
+    layout.render();
+    layout.content.show(card);
   });
 
   return app;

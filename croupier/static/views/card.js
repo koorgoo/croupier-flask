@@ -1,9 +1,11 @@
 define([
   'underscore',
   'marionette',
-  'text!templates/application.html',
+  'text!templates/card.html'
 ], function(_, Marionette, Template) {
-  return Marionette.ItemView.extend({
+  var CardView = Marionette.ItemView.extend({
     template: _.template(Template)
   });
+
+  return CardView;
 });
