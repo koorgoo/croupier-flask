@@ -81,5 +81,16 @@ class LoginApiTest(TestCase):
         assert resp.status_code == 401
 
 
+class MeApiTest(TestCase):
+    def test_not_authed(self):
+        resp = self.app.get('/api/me')
+        assert resp.status_code == 401
+
+    def test_authed(self):
+        self.login()
+        resp = self.app.get('/api/me')
+        assert resp.status_code == 200
+
+
 if __name__ == '__main__':
   unittest.main(failfast=True)

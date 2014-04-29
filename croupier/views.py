@@ -1,7 +1,8 @@
 from flask import request, render_template
-from flask.ext.login import login_user, login_required
+from flask.ext.login import (login_user, login_required,
+    current_user)
 from flask.ext.restful import (Resource, fields,
-    marshal_with, reqparse)
+    marshal_with, reqparse, abort)
 
 from .server import app, db, api, login_manager
 from .models import Card, User
@@ -56,7 +57,7 @@ class Cards(Resource):
 api.add_resource(Cards, '/api/cards')
 
 
-common_fields = {
+status_fields = {
     'status': fields.String,
 }
 
@@ -67,18 +68,32 @@ def load_user(id):
 
 
 class Login(Resource):
-    @marshal_with(common_fields)
+    @marshal_with(status_fields)
     def post(self):
         u = request.form.get('username')
         p = request.form.get('password')
         if not u or not p:
-            return { 'status': 'fail' }, 400
+            return abort(400)
 
         user = User.query.filter_by(username=u, password=p).first()
         if user is not None:
             login_user(user)
             return { 'status': 'ok' }
-
-        return { 'status': 'fail' }, 401
+        return abort(401)
 
 api.add_resource(Login, '/api/login')
+
+
+user_fields = {
+    'id': fields.Integer,
+    'username': fields.String,
+    'email': fields.String,
+}
+
+class Me(Resource):
+    @login_required
+    @marshal_with(user_fields)
+    def get(self):
+        return current_user
+
+api.add_resource(Me, '/api/me')
