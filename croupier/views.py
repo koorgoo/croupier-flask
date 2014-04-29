@@ -57,8 +57,10 @@ class Cards(Resource):
 api.add_resource(Cards, '/api/cards')
 
 
-status_fields = {
-    'status': fields.String,
+user_fields = {
+    'id': fields.Integer,
+    'username': fields.String,
+    'email': fields.String,
 }
 
 
@@ -68,7 +70,7 @@ def load_user(id):
 
 
 class Login(Resource):
-    @marshal_with(status_fields)
+    @marshal_with(user_fields)
     def post(self):
         u = request.form.get('username')
         p = request.form.get('password')
@@ -78,17 +80,11 @@ class Login(Resource):
         user = User.query.filter_by(username=u, password=p).first()
         if user is not None:
             login_user(user)
-            return { 'status': 'ok' }
+            return user
         return abort(401)
 
 api.add_resource(Login, '/api/login')
 
-
-user_fields = {
-    'id': fields.Integer,
-    'username': fields.String,
-    'email': fields.String,
-}
 
 class Me(Resource):
     @login_required
