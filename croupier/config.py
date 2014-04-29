@@ -7,6 +7,8 @@ BASE_DIR = os.path.dirname(curdir)
 
 DEBUG = FLASK_ENV == 'development'
 
+SECRET_KEY = os.environ.get('FLASK_SECRET_KEY', 'local')
+
 if FLASK_ENV == 'test':
   SQLALCHEMY_DATABASE_URI = 'sqlite://'  # :memory:
 else:

@@ -4,15 +4,23 @@ os.environ['FLASK_ENV'] = 'test'
 import json
 import unittest
 
+from flask.ext.login import current_user
+
 from croupier.server import app, db
-from croupier.models import Card
+from croupier.models import Card, User
 
 
 class TestCase(unittest.TestCase):
   def setUp(self):
     db.create_all()
-    db.session.add(Card('1 + 2 = ?', '3'))
+
+    self.card = Card('1 + 2 = ?', '3')
+    self.user = User('user', 'pass', 'user@test.com')
+
+    db.session.add(self.card)
+    db.session.add(self.user)
     db.session.commit()
+
     self.app = app.test_client()
 
   def tearDown(self):
@@ -47,5 +55,21 @@ class CardApiTest(TestCase):
         assert data['id'] is not None
 
 
+class LoginApiTest(TestCase):
+    def test_login(self):
+        data = { 'username': self.user.username, 'password': self.user.password }
+        resp = self.app.post('/api/login', data=data)
+        assert resp.status_code == 200
+
+    def test_bad_request(self):
+        resp = self.app.post('/api/login', data={})
+        assert resp.status_code == 400
+
+    def test_unauthorized(self):
+        data = { 'username': 'none', 'password': 'none' }
+        resp = self.app.post('/api/login', data=data)
+        assert resp.status_code == 401
+
+
 if __name__ == '__main__':
-  unittest.main()
+  unittest.main(failfast=True)
