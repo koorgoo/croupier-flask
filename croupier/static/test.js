@@ -14,7 +14,7 @@ requirejs.config({
 
 require([
   'qunit',
-  'tests/foo'
+  'tests/views',
 ], function(QUnit) {
   QUnit.load();
   QUnit.start();

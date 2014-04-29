@@ -13,12 +13,6 @@ define([
       return this;
     },
 
-    ui: {
-      toggle  : '.toggle',
-      front   : '.front',
-      back    : '.back'
-    },
-
     events: {
       'click .toggle'  : 'toggleBack',
       'click .go'      : 'goNext'
