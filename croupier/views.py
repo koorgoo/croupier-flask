@@ -43,6 +43,7 @@ class Cards(Resource):
     def get(self):
         return Card.query.all()
 
+    @login_required
     @marshal_with(card_fields)
     def post(self):
         args = card_parser.parse_args()
